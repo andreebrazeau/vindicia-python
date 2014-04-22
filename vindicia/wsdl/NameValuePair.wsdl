@@ -1,0 +1,120 @@
+<definitions name="NameValuePair" targetNamespace="http://soap.vindicia.com/v4_3/NameValuePair" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.vindicia.com/v4_3/NameValuePair" xmlns:vin="http://soap.vindicia.com/v4_3/Vindicia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdl="http://soap.vindicia.com/v4_3/NameValuePair" >
+  <documentation>WSDL Specification for NameValuePair</documentation>
+  <types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/v4_3/NameValuePair">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://soap.vindicia.com/v4_3/Vindicia" schemaLocation="Vindicia.xsd" />
+      <xsd:element name="fetchNameValueNames">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="type" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchNameValueNamesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="names" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchNameValueTypes">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchNameValueTypesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="types" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+  <message name="fetchNameValueNames_in">
+    <part element="tns:fetchNameValueNames" name="parameters" />
+  </message>
+  <message name="fetchNameValueNames_out">
+    <part element="tns:fetchNameValueNamesResponse" name="parameters" />
+  </message>
+  <message name="fetchNameValueTypes_in">
+    <part element="tns:fetchNameValueTypes" name="parameters" />
+  </message>
+  <message name="fetchNameValueTypes_out">
+    <part element="tns:fetchNameValueTypesResponse" name="parameters" />
+  </message>
+  <portType name="NameValuePairPortType">
+    <operation name="fetchNameValueNames">
+      <input message="tns:fetchNameValueNames_in" />
+      <output message="tns:fetchNameValueNames_out" />
+    </operation>
+    <operation name="fetchNameValueTypes">
+      <input message="tns:fetchNameValueTypes_in" />
+      <output message="tns:fetchNameValueTypes_out" />
+    </operation>
+  </portType>
+  <binding name="NameValuePairBinding" type="tns:NameValuePairPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="fetchNameValueNames">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Fetches an array of distinct names from the name/value pairs that the merchant has associated with objects of the given class.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>type</b></dt>
+<dd>The class of objects for which you want distinct name/value-pair names.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>names</b></dt>
+<dd>An array of distinct names from the name/value pairs that the merchant has associated with objects of the given class.</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v4_3/NameValuePair#fetchNameValueNames" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="fetchNameValueTypes">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Fetches an array of strings representing the types of objects that have name/value pairs. These types can be used with the fetchNameValueNames function to retrieve name/value names.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>types</b></dt>
+<dd>An array of strings representing the types of objects that have name/value pairs.</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v4_3/NameValuePair#fetchNameValueTypes" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="NameValuePair">
+    <port binding="tns:NameValuePairBinding" name="NameValuePairPort">
+      <soap:address location="https://soap.vindicia.com/soap.pl" />
+    </port>
+  </service>
+</definitions>

@@ -1,0 +1,135 @@
+<definitions name="PaymentProvider" targetNamespace="http://soap.vindicia.com/v4_3/PaymentProvider" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.vindicia.com/v4_3/PaymentProvider" xmlns:vin="http://soap.vindicia.com/v4_3/Vindicia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdl="http://soap.vindicia.com/v4_3/PaymentProvider" >
+  <documentation>WSDL Specification for PaymentProvider</documentation>
+  <types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/v4_3/PaymentProvider">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://soap.vindicia.com/v4_3/Vindicia" schemaLocation="Vindicia.xsd" />
+      <xsd:element name="fetchByName">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="name" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByNameResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" name="paymentProvider" type="vin:PaymentProvider" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="dataRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="paymentProvider" type="vin:PaymentProvider" />
+            <xsd:element name="requestType" type="xsd:string" />
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="requestArguments" type="vin:NameValuePair" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="dataRequestResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" name="paymentProvider" type="vin:PaymentProvider" />
+            <xsd:element minOccurs="0" name="request" type="xsd:string" />
+            <xsd:element minOccurs="0" name="response" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+  <message name="fetchByName_in">
+    <part element="tns:fetchByName" name="parameters" />
+  </message>
+  <message name="fetchByName_out">
+    <part element="tns:fetchByNameResponse" name="parameters" />
+  </message>
+  <message name="dataRequest_in">
+    <part element="tns:dataRequest" name="parameters" />
+  </message>
+  <message name="dataRequest_out">
+    <part element="tns:dataRequestResponse" name="parameters" />
+  </message>
+  <portType name="PaymentProviderPortType">
+    <operation name="fetchByName">
+      <input message="tns:fetchByName_in" />
+      <output message="tns:fetchByName_out" />
+    </operation>
+    <operation name="dataRequest">
+      <input message="tns:dataRequest_in" />
+      <output message="tns:dataRequest_out" />
+    </operation>
+  </portType>
+  <binding name="PaymentProviderBinding" type="tns:PaymentProviderPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="fetchByName">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads a paymentProvider by name<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>name</b></dt>
+<dd>Payment Provider Name</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>paymentProvider</b></dt>
+<dd>The resultant object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v4_3/PaymentProvider#fetchByName" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="dataRequest">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Performs generic query on PaymentProvider.                   The only PaymentProvider currently supported by this method is BOKU<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>paymentProvider</b></dt>
+<dd>The PaymentProvider against which the query will be performed.                      Currently, only BOKU is supported.</dd>
+<dt><b>requestType</b></dt>
+<dd>Type of query to be performed.                       Currently only the Boku price and service-price calls are supported</dd>
+<dt><b>requestArguments</b></dt>
+<dd>Array of name/value pairs used to construct the query.  Note that the following                    price/service-price parameters are not allowed:                    merchant-id (Vindicia will include authentication information for the query),                     password    (Vindicia will include authentication information for the query),                     sig         (Vindicia will include authentication information for the query),                     timestamp   (Vindicia will include authentication information for the query) </dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>paymentProvider</b></dt>
+<dd>The PaymentProvider against which the query was performed.</dd>
+<dt><b>request</b></dt>
+<dd>Formatted query input in PaymentProvider-native format</dd>
+<dt><b>response</b></dt>
+<dd>Query output in PaymentProvider-native format</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v4_3/PaymentProvider#dataRequest" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="PaymentProvider">
+    <port binding="tns:PaymentProviderBinding" name="PaymentProviderPort">
+      <soap:address location="https://soap.vindicia.com/soap.pl" />
+    </port>
+  </service>
+</definitions>
