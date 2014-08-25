@@ -26,4 +26,4 @@ class VindiciaTest(unittest.TestCase):
         self.vin = vindicia
         logging.basicConfig(level=logging.INFO)
         logging.getLogger('vindicia').setLevel(logging.INFO)
-        logging.getLogger('suds.client').setLevel(logging.DEBUG)
+        logging.getLogger('suds.client').setLevel(logging.INFO)

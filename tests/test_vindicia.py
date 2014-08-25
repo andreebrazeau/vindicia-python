@@ -30,7 +30,6 @@ class VindiciaTestCase(VindiciaTest):
 
     def test_Authentication(self):
         auth = self.vin.get_authentication()
-        #import ipdb;ipdb.set_trace()
 
         self.assertIsNotNone(auth)
         print auth
@@ -41,7 +40,6 @@ class VindiciaTestCase(VindiciaTest):
     def test_BaseWsdl_to_dict(self):
         user_id = datetime.now()
         nv = self.vin.NameValuePair(name='Name', value="Value")
-        # import ipdb;ipdb.set_trace()
         account = self.vin.Account(merchantAccountId=user_id, nameValues=nv.to_dict())
         print account
         response = account.update()
@@ -95,12 +93,12 @@ class VindiciaTestCase(VindiciaTest):
         response = account.update_payment_method(pm.to_dict())
         self.assertTrue(response.get('completed'))
         self.assertEqual(response['return_code'], 200)
+        self.assertEqual(response['return_code'], 200)
 
     def test_billing_plan(self):
 
         rate_plan = self.vin.BillingPlan()
         response = rate_plan.fetch_all()
-        #import ipdb;ipdb.set_trace()
         self.assertTrue(response.get('completed'))
         self.assertEqual(response['return_code'], 200)
 
@@ -192,7 +190,6 @@ class VindiciaTestCase(VindiciaTest):
                                           returnURL=return_url,
                                           errorURL=error_url)
 
-        #import ipdb;ipdb.set_trace()
         response = web_session.initialize()
         self.assertTrue(response.get('completed'))
         self.assertEqual(response['return_code'], 200)
@@ -213,7 +210,6 @@ class VindiciaTestCase(VindiciaTest):
                                           privateFormValues=[nv1.to_dict(), nv2.to_dict()]
         )
 
-        #import ipdb;ipdb.set_trace()
         response = web_session.initialize()
         self.assertTrue(response.get('completed'))
         self.assertEqual(response['return_code'], 200)
@@ -227,7 +223,6 @@ class VindiciaTestCase(VindiciaTest):
                                           returnURL=return_url,
                                           errorURL=error_url)
         response = web_session.initialize()
-        #import ipdb;ipdb.set_trace()
         self.assertTrue(response.get('completed'))
         self.assertEqual(response['return_code'], 200)
 
@@ -313,13 +308,11 @@ class VindiciaTestCase(VindiciaTest):
         auto_bill = self.vin.AutoBill()
         response = auto_bill.fetchByAccount(account=account)
 
-        #import ipdb;ipdb.set_trace()
         print response
         self.assertNotEqual(getattr(response['data'], 'return').returnCode, "500")
 
     def test_Autobill_update_coupon_invalid(self):
         account = self.vin.Account(merchantAccountId=123)
-        # import ipdb;ipdb.set_trace()
         autobill = self.vin.AutoBill(billingPlan={'merchantBillingPlanId': "pro_monthly"},
                                      account={"merchantAccountId": 123},
                                      currency="USD",
@@ -352,78 +345,6 @@ class VindiciaTestCase(VindiciaTest):
 
         response = autobill.fetch_delta_since(timestamp)
         print response
-        self.assertIsNotNone(response)
-        self.assertTrue(response.get('completed'))
-        self.assertEqual(response['return_code'], 200)
-
-    def test_account_make_payment(self):
-        #create account
-        created_account = self.vin.Account(
-            merchantAccountId=123123,
-            emailAddress='123123@test.com',
-            preferredLanguage="ENG",
-            name="Test Vindicia"
-        )
-        response = created_account.update()
-        print response
-        #create payment method
-        merchantPaymentMethodId = uuid.uuid4().hex
-        account = self.vin.Account(merchantAccountId=self.user.id)
-        pm = self.vin.PaymentMethod(
-            type="MerchantAcceptedPayment",
-            merchantAcceptedPayment={
-                "paymentType": "iTunes",
-            },
-            merchantPaymentMethodId=merchantPaymentMethodId,
-        )
-        response = account.update_payment_method(payment_method=pm.to_dict())
-        print response
-
-        #create Autobill
-        data = {"purchase_date_pst": "2013-10-10 17:19:00 America/Los_Angeles",
-                "expires_date": "1381451040000",
-                "product_id": "com.Bitcasa.Bitcasa.infinite_month",
-                "original_transaction_id": uuid.uuid4().hex,
-                "unique_identifier": "408e8f478108ba73335bbebe62ecdd987f07165d",
-                "original_purchase_date_pst": "2013-10-10 16:54:02 America/Los_Angeles",
-                "expires_date_formatted_pst": "2013-10-10 17:24:00 America/Los_Angeles",
-                "original_purchase_date": "2013-10-10 23:54:02 Etc/GMT",
-                "expires_date_formatted": "2013-10-11 00:24:00 Etc/GMT",
-                "bvrs": "211013",
-                "original_purchase_date_ms": "1381449242000",
-                "purchase_date": "2013-10-11 00:19:00 Etc/GMT",
-                "web_order_line_item_id": "1000000027448157",
-                "purchase_date_ms": "1381450740000",
-                "item_id": "668648908",
-                "bid": "com.Bitcasa.Bitcasa",
-                "transaction_id": "1000000089744225",
-                "quantity": "1"}
-        plan_name = "premium_monthly_itunes"
-
-        response = self.sync_apple_billing_in_vindicia(self.user.id, data, plan_name)
-        print response
-
-        autobill_id = response.autobill.merchantAutoBillId
-        autobill = self.vin.AutoBill(merchantAutoBillId=autobill_id)
-
-        import ipdb;ipdb.set_trace()
-        merchantPaymentMethodId = uuid.uuid4().hex
-        account = self.vin.Account(merchantAccountId=self.user.id)
-        pm = self.vin.PaymentMethod(
-            type="MerchantAcceptedPayment",
-            merchantAcceptedPayment={
-                "paymentType": "iTunes",
-            },
-            merchantPaymentMethodId=merchantPaymentMethodId,
-        )
-        response = account.update_payment_method(payment_method=pm.to_dict())
-        import ipdb;ipdb.set_trace()
-        print response
-
-        response = autobill.make_payment(payment_method=pm.to_dict(),
-                                         amount=99)
-        print response
-
         self.assertIsNotNone(response)
         self.assertTrue(response.get('completed'))
         self.assertEqual(response['return_code'], 200)
