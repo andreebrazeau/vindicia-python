@@ -18,7 +18,7 @@ except ImportError:
     more_install_requires.append('ssl')
 
 requires = [
-    'suds',
+    'suds-jurko',
     ]
 
 tests_require = [

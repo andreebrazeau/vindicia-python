@@ -2,11 +2,6 @@ from suds.client import Client
 
 import vindicia
 
-#logging.basicConfig(level=logging.DEBUG)
-
-#logging.getLogger('suds.client').setLevel(logging.DEBUG)
-
-
 VIN_SOAP_TIMEOUT = 120
 
 
