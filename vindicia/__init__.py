@@ -10,7 +10,7 @@ Please see the Vindicia API documentation for more information:
 
 """
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 
 USER = None
 """The SOAP api client user to authenticated against."""
@@ -406,12 +406,29 @@ class AutoBill(BaseWSDL):
         ret = soap.call('AutoBill', 'update', inputs)
         return ret
 
-    def fetchByAccount(self, account=None, includeChildren=None):
+    def fetch_by_account(self, account=None, includeChildren=None):
         auth = get_authentication()
 
         call_params = {
             'auth': auth,
             'account': account.to_dict(),
+            'includeChildren': includeChildren,
+        }
+
+        inputs = {
+            'parameters': call_params
+        }
+
+        soap = CallClient()
+        ret = soap.call('AutoBill', 'fetchByAccount', inputs)
+        return ret
+
+    def fetch_by_merchant_account_id(self, merchant_account_id=None, includeChildren=None):
+        auth = get_authentication()
+
+        call_params = {
+            'auth': auth,
+            'account': {'merchantAccountId': merchant_account_id},
             'includeChildren': includeChildren,
         }
 
