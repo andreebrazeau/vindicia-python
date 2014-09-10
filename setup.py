@@ -11,12 +11,6 @@ with open(os.path.join(os.path.dirname(__file__),
                        'vindicia', '__init__.py')) as PACKAGE:
     VERSION = VERSION_RE.search(PACKAGE.read()).group(1)
 
-more_install_requires = list()
-try:
-    import ssl
-except ImportError:
-    more_install_requires.append('ssl')
-
 requires = [
     'suds-jurko',
     ]
@@ -48,4 +42,5 @@ setup(
     tests_require=tests_require,
     test_suite='unittest2.collector',
     zip_safe=True,
+    include_package_data=True,
 )
