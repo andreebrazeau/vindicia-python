@@ -31,7 +31,7 @@ setup(
     version=VERSION,
     description="A python client wrapper to the Vindicia api.",
     long_description=DESCRIPTION,
-    author='Andree Brazeai',
+    author='Andree Brazeau',
     author_email='andreebrazeau@gmail.com',
     license='MIT',
     classifiers=[
