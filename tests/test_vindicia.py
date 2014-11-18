@@ -298,7 +298,7 @@ class VindiciaTestCase(VindiciaTest):
         other_good_user = 123
         account = self.vin.Account(merchantAccountId=other_good_user)
         auto_bill = self.vin.AutoBill()
-        response = auto_bill.fetchByAccount(account=account)
+        response = auto_bill.fetch_by_account(account=account)
 
         print response
         self.assertNotEqual(getattr(response['data'], 'return').returnCode, "500")
@@ -306,7 +306,7 @@ class VindiciaTestCase(VindiciaTest):
     def test_AutoBill_upgrade(self):
         account = self.vin.Account(merchantAccountId=123)
         auto_bill = self.vin.AutoBill()
-        response = auto_bill.fetchByAccount(account=account)
+        response = auto_bill.fetch_by_account(account=account)
 
         print response
         self.assertNotEqual(getattr(response['data'], 'return').returnCode, "500")

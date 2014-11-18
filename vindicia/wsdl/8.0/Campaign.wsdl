@@ -1,0 +1,756 @@
+<definitions name="Campaign" targetNamespace="http://soap.vindicia.com/v8_0/Campaign" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.vindicia.com/v8_0/Campaign" xmlns:vin="http://soap.vindicia.com/v8_0/Vindicia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdl="http://soap.vindicia.com/v8_0/Campaign" >
+  <documentation>WSDL Specification for Campaign</documentation>
+  <types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/v8_0/Campaign">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://soap.vindicia.com/v8_0/Vindicia" schemaLocation="./Vindicia.xsd" />
+      <xsd:element name="generateCouponCodes">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+            <xsd:element minOccurs="0" name="invalidateAnyExistingCodes" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="generateCouponCodesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveCouponCodes">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+            <xsd:element name="page" type="xsd:integer" />
+            <xsd:element name="pageSize" type="xsd:integer" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="retrieveCouponCodesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="couponCode" type="vin:CouponCode" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="validateCode">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="code" type="xsd:string" />
+            <xsd:element name="activateCodeNow" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="validateCodeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element name="valid" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="activateCode">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="code" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="activateCodeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchAllCampaigns">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="status" type="vin:CampaignState" />
+            <xsd:element name="page" type="xsd:integer" />
+            <xsd:element name="pageSize" type="xsd:integer" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchAllCampaignsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="campaign" type="vin:Campaign" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByCampaignId">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="campaignId" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByCampaignIdResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByVid">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="vid" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByVidResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="activateCampaign">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+            <xsd:element minOccurs="0" name="forcePending" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="activateCampaignResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deactivateCampaign">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deactivateCampaignResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="cancelCampaign">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="cancelCampaignResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="markAllCouponsUsed">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="markAllCouponsUsedResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateCampaign">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateCampaignResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createCampaign">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="createCampaignResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="cloneCampaign">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+            <xsd:element name="newCampaignId" type="xsd:string" />
+            <xsd:element name="newCampaignSeries" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="cloneCampaignResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element name="campaign" type="vin:Campaign" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+  <message name="generateCouponCodes_in">
+    <part element="tns:generateCouponCodes" name="parameters" />
+  </message>
+  <message name="generateCouponCodes_out">
+    <part element="tns:generateCouponCodesResponse" name="parameters" />
+  </message>
+  <message name="retrieveCouponCodes_in">
+    <part element="tns:retrieveCouponCodes" name="parameters" />
+  </message>
+  <message name="retrieveCouponCodes_out">
+    <part element="tns:retrieveCouponCodesResponse" name="parameters" />
+  </message>
+  <message name="validateCode_in">
+    <part element="tns:validateCode" name="parameters" />
+  </message>
+  <message name="validateCode_out">
+    <part element="tns:validateCodeResponse" name="parameters" />
+  </message>
+  <message name="activateCode_in">
+    <part element="tns:activateCode" name="parameters" />
+  </message>
+  <message name="activateCode_out">
+    <part element="tns:activateCodeResponse" name="parameters" />
+  </message>
+  <message name="fetchAllCampaigns_in">
+    <part element="tns:fetchAllCampaigns" name="parameters" />
+  </message>
+  <message name="fetchAllCampaigns_out">
+    <part element="tns:fetchAllCampaignsResponse" name="parameters" />
+  </message>
+  <message name="fetchByCampaignId_in">
+    <part element="tns:fetchByCampaignId" name="parameters" />
+  </message>
+  <message name="fetchByCampaignId_out">
+    <part element="tns:fetchByCampaignIdResponse" name="parameters" />
+  </message>
+  <message name="fetchByVid_in">
+    <part element="tns:fetchByVid" name="parameters" />
+  </message>
+  <message name="fetchByVid_out">
+    <part element="tns:fetchByVidResponse" name="parameters" />
+  </message>
+  <message name="activateCampaign_in">
+    <part element="tns:activateCampaign" name="parameters" />
+  </message>
+  <message name="activateCampaign_out">
+    <part element="tns:activateCampaignResponse" name="parameters" />
+  </message>
+  <message name="deactivateCampaign_in">
+    <part element="tns:deactivateCampaign" name="parameters" />
+  </message>
+  <message name="deactivateCampaign_out">
+    <part element="tns:deactivateCampaignResponse" name="parameters" />
+  </message>
+  <message name="cancelCampaign_in">
+    <part element="tns:cancelCampaign" name="parameters" />
+  </message>
+  <message name="cancelCampaign_out">
+    <part element="tns:cancelCampaignResponse" name="parameters" />
+  </message>
+  <message name="markAllCouponsUsed_in">
+    <part element="tns:markAllCouponsUsed" name="parameters" />
+  </message>
+  <message name="markAllCouponsUsed_out">
+    <part element="tns:markAllCouponsUsedResponse" name="parameters" />
+  </message>
+  <message name="updateCampaign_in">
+    <part element="tns:updateCampaign" name="parameters" />
+  </message>
+  <message name="updateCampaign_out">
+    <part element="tns:updateCampaignResponse" name="parameters" />
+  </message>
+  <message name="createCampaign_in">
+    <part element="tns:createCampaign" name="parameters" />
+  </message>
+  <message name="createCampaign_out">
+    <part element="tns:createCampaignResponse" name="parameters" />
+  </message>
+  <message name="cloneCampaign_in">
+    <part element="tns:cloneCampaign" name="parameters" />
+  </message>
+  <message name="cloneCampaign_out">
+    <part element="tns:cloneCampaignResponse" name="parameters" />
+  </message>
+  <portType name="CampaignPortType">
+    <operation name="generateCouponCodes">
+      <input message="tns:generateCouponCodes_in" />
+      <output message="tns:generateCouponCodes_out" />
+    </operation>
+    <operation name="retrieveCouponCodes">
+      <input message="tns:retrieveCouponCodes_in" />
+      <output message="tns:retrieveCouponCodes_out" />
+    </operation>
+    <operation name="validateCode">
+      <input message="tns:validateCode_in" />
+      <output message="tns:validateCode_out" />
+    </operation>
+    <operation name="activateCode">
+      <input message="tns:activateCode_in" />
+      <output message="tns:activateCode_out" />
+    </operation>
+    <operation name="fetchAllCampaigns">
+      <input message="tns:fetchAllCampaigns_in" />
+      <output message="tns:fetchAllCampaigns_out" />
+    </operation>
+    <operation name="fetchByCampaignId">
+      <input message="tns:fetchByCampaignId_in" />
+      <output message="tns:fetchByCampaignId_out" />
+    </operation>
+    <operation name="fetchByVid">
+      <input message="tns:fetchByVid_in" />
+      <output message="tns:fetchByVid_out" />
+    </operation>
+    <operation name="activateCampaign">
+      <input message="tns:activateCampaign_in" />
+      <output message="tns:activateCampaign_out" />
+    </operation>
+    <operation name="deactivateCampaign">
+      <input message="tns:deactivateCampaign_in" />
+      <output message="tns:deactivateCampaign_out" />
+    </operation>
+    <operation name="cancelCampaign">
+      <input message="tns:cancelCampaign_in" />
+      <output message="tns:cancelCampaign_out" />
+    </operation>
+    <operation name="markAllCouponsUsed">
+      <input message="tns:markAllCouponsUsed_in" />
+      <output message="tns:markAllCouponsUsed_out" />
+    </operation>
+    <operation name="updateCampaign">
+      <input message="tns:updateCampaign_in" />
+      <output message="tns:updateCampaign_out" />
+    </operation>
+    <operation name="createCampaign">
+      <input message="tns:createCampaign_in" />
+      <output message="tns:createCampaign_out" />
+    </operation>
+    <operation name="cloneCampaign">
+      <input message="tns:cloneCampaign_in" />
+      <output message="tns:cloneCampaign_out" />
+    </operation>
+  </portType>
+  <binding name="CampaignBinding" type="tns:CampaignPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="generateCouponCodes">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+This method generates a group of coupon codes using a separator character between the series and code (if "separator" is specified). It will optionally return the complete set of codes (using pages) if the Boolean retCodes is set to true.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>campaign</b></dt>
+<dd>The campaign to generate the coupon codes for</dd>
+<dt><b>invalidateAnyExistingCodes</b></dt>
+<dd>In the case where you want to regenerate codes for a campaign that may already have them, Vindicia will not allow you to generate new ones unless you set invalidateAnyExistingCodes to true.  For a campaign with no existing codes, this is ignored.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#generateCouponCodes" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="retrieveCouponCodes">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Retrieves coupon codes previously generated by generateCouponCodes<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>campaign</b></dt>
+<dd>The campaign to generate the coupon codes for</dd>
+<dt><b>page</b></dt>
+<dd></dd>
+<dt><b>pageSize</b></dt>
+<dd></dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>couponCode</b></dt>
+<dd>An array of coupon codes created.  This is only returned if retCodes is set to 1.</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#retrieveCouponCodes" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="validateCode">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+This method checks if a coupon or promotion can be used.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>code</b></dt>
+<dd></dd>
+<dt><b>activateCodeNow</b></dt>
+<dd>If true, activates the code now, if it is valid.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>valid</b></dt>
+<dd></dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#validateCode" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="activateCode">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+This method activates a coupon code. In some cases the merchant may want to activate a code before it can be used. There is a flag in the validateCode method to activate the code at the same time it is validated.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>code</b></dt>
+<dd></dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#activateCode" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="fetchAllCampaigns">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+This method returns an array of campaign objects possibly filtered by the status of the campaign.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>status</b></dt>
+<dd></dd>
+<dt><b>page</b></dt>
+<dd></dd>
+<dt><b>pageSize</b></dt>
+<dd></dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>campaign</b></dt>
+<dd></dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#fetchAllCampaigns" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="fetchByCampaignId">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+This method returns a single campaign object.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>campaignId</b></dt>
+<dd></dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>campaign</b></dt>
+<dd></dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#fetchByCampaignId" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="fetchByVid">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads an autobill by Vindicia's unique ID.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>vid</b></dt>
+<dd>Vindicia ID for the object</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>campaign</b></dt>
+<dd></dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#fetchByVid" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="activateCampaign">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+This method activates an inactive or pending campaign. The method fails silently if campaign is already active. If the campaign is made active from the pending state the offer start date shall be changed to the current date.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>campaign</b></dt>
+<dd></dd>
+<dt><b>forcePending</b></dt>
+<dd>If forcePending is true, activate the campaign even if it is in the Pending state.  Without this, the Campaign must be in the Inactive state.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#activateCampaign" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="deactivateCampaign">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+This method deactivates an active or pending campaign. The method fails silently if campaign is already inactive.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>campaign</b></dt>
+<dd></dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#deactivateCampaign" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="cancelCampaign">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+This method cancels campaign.  Once cancelled, a campaign's discounts are unobtainable.  Cancel cannot be reversed, though it is possible to use cloneCampaign to clone a cancelled campaign.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>campaign</b></dt>
+<dd></dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#cancelCampaign" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="markAllCouponsUsed">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+This method marks all coupons used.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>campaign</b></dt>
+<dd></dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#markAllCouponsUsed" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="updateCampaign">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+This method updates an existing campaign in the pending or inactive states. The update is limited to the campaign's start or end offer date, the coupon's expiration date or the promotion period length.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>campaign</b></dt>
+<dd></dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>campaign</b></dt>
+<dd>The full Campaign object, including fields that Vindicia fills in such as the VID.</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#updateCampaign" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="createCampaign">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+This method creates a new campaign.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>campaign</b></dt>
+<dd></dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>campaign</b></dt>
+<dd>The full Campaign object, including fields that Vindicia fills in such as the VID.</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#createCampaign" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="cloneCampaign">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Creates a new campaign based on an existing campaign.  It will be created in the Inactive state (regardless of the state of the campaign that is cloned).<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>campaign</b></dt>
+<dd>Campaign to clone from. It must exist already in Vindicia's database.</dd>
+<dt><b>newCampaignId</b></dt>
+<dd>Intended campaign ID for the new Campaign. It must not exist already in Vindicia's database.</dd>
+<dt><b>newCampaignSeries</b></dt>
+<dd>Intended new coupon prefix or promotion code for the new Campaign.  It must not exist already in Vindicia's database.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>campaign</b></dt>
+<dd>The full cloned Campaign object, including fields that Vindicia fills in such as the VID.</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/Campaign#cloneCampaign" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="Campaign">
+    <port binding="tns:CampaignBinding" name="CampaignPort">
+      <soap:address location="https://soap.vindicia.com/soap.pl" />
+    </port>
+  </service>
+</definitions>

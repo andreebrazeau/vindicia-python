@@ -1,0 +1,512 @@
+<definitions name="RatePlan" targetNamespace="http://soap.vindicia.com/v8_0/RatePlan" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.vindicia.com/v8_0/RatePlan" xmlns:vin="http://soap.vindicia.com/v8_0/Vindicia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdl="http://soap.vindicia.com/v8_0/RatePlan" >
+  <documentation>WSDL Specification for RatePlan</documentation>
+  <types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/v8_0/RatePlan">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://soap.vindicia.com/v8_0/Vindicia" schemaLocation="./Vindicia.xsd" />
+      <xsd:element name="update">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element minOccurs="0" name="ratePlan" type="vin:RatePlan" />
+            <xsd:element minOccurs="0" name="force" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" name="ratePlan" type="vin:RatePlan" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByMerchantRatePlanId">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element minOccurs="0" name="merchantRatePlanId" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByMerchantRatePlanIdResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" name="ratePlan" type="vin:RatePlan" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByVid">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element minOccurs="0" name="vid" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByVidResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" name="ratePlan" type="vin:RatePlan" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="recordEvent">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="event" type="vin:Event" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="recordEventResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="reverseEvent">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="event" type="vin:Event" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="reverseEventResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deductEvent">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="event" type="vin:Event" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deductEventResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchUnbilledRatedUnitsTotal">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element minOccurs="0" name="account" type="vin:Account" />
+            <xsd:element minOccurs="0" name="autobill" type="vin:AutoBill" />
+            <xsd:element minOccurs="0" name="product" type="vin:Product" />
+            <xsd:element minOccurs="0" name="ratePlan" type="vin:RatePlan" />
+            <xsd:element minOccurs="0" name="startTimestamp" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" name="endTimestamp" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" name="page" type="xsd:int" />
+            <xsd:element minOccurs="0" name="pageSize" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchUnbilledRatedUnitsTotalResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="ratedUnitSummary" type="vin:RatedUnitSummary" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchUnbilledEvents">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element minOccurs="0" name="account" type="vin:Account" />
+            <xsd:element minOccurs="0" name="autobill" type="vin:AutoBill" />
+            <xsd:element minOccurs="0" name="product" type="vin:Product" />
+            <xsd:element minOccurs="0" name="ratePlan" type="vin:RatePlan" />
+            <xsd:element minOccurs="0" name="startTimestamp" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" name="endTimestamp" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" name="page" type="xsd:int" />
+            <xsd:element minOccurs="0" name="pageSize" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchUnbilledEventsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="event" type="vin:Event" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchEvents">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element minOccurs="0" name="account" type="vin:Account" />
+            <xsd:element minOccurs="0" name="autobill" type="vin:AutoBill" />
+            <xsd:element minOccurs="0" name="product" type="vin:Product" />
+            <xsd:element minOccurs="0" name="ratePlan" type="vin:RatePlan" />
+            <xsd:element minOccurs="0" name="startTimestamp" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" name="endTimestamp" type="xsd:dateTime" />
+            <xsd:element minOccurs="0" name="page" type="xsd:int" />
+            <xsd:element minOccurs="0" name="pageSize" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchEventsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="event" type="vin:Event" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchEventById">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element minOccurs="0" name="merchantEventId" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchEventByIdResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" name="event" type="vin:Event" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchEventByVid">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element minOccurs="0" name="vid" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchEventByVidResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" name="event" type="vin:Event" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchAll">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="page" type="xsd:int" />
+            <xsd:element name="pageSize" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchAllResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="ratePlans" type="vin:RatePlan" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+  <message name="update_in">
+    <part element="tns:update" name="parameters" />
+  </message>
+  <message name="update_out">
+    <part element="tns:updateResponse" name="parameters" />
+  </message>
+  <message name="fetchByMerchantRatePlanId_in">
+    <part element="tns:fetchByMerchantRatePlanId" name="parameters" />
+  </message>
+  <message name="fetchByMerchantRatePlanId_out">
+    <part element="tns:fetchByMerchantRatePlanIdResponse" name="parameters" />
+  </message>
+  <message name="fetchByVid_in">
+    <part element="tns:fetchByVid" name="parameters" />
+  </message>
+  <message name="fetchByVid_out">
+    <part element="tns:fetchByVidResponse" name="parameters" />
+  </message>
+  <message name="recordEvent_in">
+    <part element="tns:recordEvent" name="parameters" />
+  </message>
+  <message name="recordEvent_out">
+    <part element="tns:recordEventResponse" name="parameters" />
+  </message>
+  <message name="reverseEvent_in">
+    <part element="tns:reverseEvent" name="parameters" />
+  </message>
+  <message name="reverseEvent_out">
+    <part element="tns:reverseEventResponse" name="parameters" />
+  </message>
+  <message name="deductEvent_in">
+    <part element="tns:deductEvent" name="parameters" />
+  </message>
+  <message name="deductEvent_out">
+    <part element="tns:deductEventResponse" name="parameters" />
+  </message>
+  <message name="fetchUnbilledRatedUnitsTotal_in">
+    <part element="tns:fetchUnbilledRatedUnitsTotal" name="parameters" />
+  </message>
+  <message name="fetchUnbilledRatedUnitsTotal_out">
+    <part element="tns:fetchUnbilledRatedUnitsTotalResponse" name="parameters" />
+  </message>
+  <message name="fetchUnbilledEvents_in">
+    <part element="tns:fetchUnbilledEvents" name="parameters" />
+  </message>
+  <message name="fetchUnbilledEvents_out">
+    <part element="tns:fetchUnbilledEventsResponse" name="parameters" />
+  </message>
+  <message name="fetchEvents_in">
+    <part element="tns:fetchEvents" name="parameters" />
+  </message>
+  <message name="fetchEvents_out">
+    <part element="tns:fetchEventsResponse" name="parameters" />
+  </message>
+  <message name="fetchEventById_in">
+    <part element="tns:fetchEventById" name="parameters" />
+  </message>
+  <message name="fetchEventById_out">
+    <part element="tns:fetchEventByIdResponse" name="parameters" />
+  </message>
+  <message name="fetchEventByVid_in">
+    <part element="tns:fetchEventByVid" name="parameters" />
+  </message>
+  <message name="fetchEventByVid_out">
+    <part element="tns:fetchEventByVidResponse" name="parameters" />
+  </message>
+  <message name="fetchAll_in">
+    <part element="tns:fetchAll" name="parameters" />
+  </message>
+  <message name="fetchAll_out">
+    <part element="tns:fetchAllResponse" name="parameters" />
+  </message>
+  <portType name="RatePlanPortType">
+    <operation name="update">
+      <input message="tns:update_in" />
+      <output message="tns:update_out" />
+    </operation>
+    <operation name="fetchByMerchantRatePlanId">
+      <input message="tns:fetchByMerchantRatePlanId_in" />
+      <output message="tns:fetchByMerchantRatePlanId_out" />
+    </operation>
+    <operation name="fetchByVid">
+      <input message="tns:fetchByVid_in" />
+      <output message="tns:fetchByVid_out" />
+    </operation>
+    <operation name="recordEvent">
+      <input message="tns:recordEvent_in" />
+      <output message="tns:recordEvent_out" />
+    </operation>
+    <operation name="reverseEvent">
+      <input message="tns:reverseEvent_in" />
+      <output message="tns:reverseEvent_out" />
+    </operation>
+    <operation name="deductEvent">
+      <input message="tns:deductEvent_in" />
+      <output message="tns:deductEvent_out" />
+    </operation>
+    <operation name="fetchUnbilledRatedUnitsTotal">
+      <input message="tns:fetchUnbilledRatedUnitsTotal_in" />
+      <output message="tns:fetchUnbilledRatedUnitsTotal_out" />
+    </operation>
+    <operation name="fetchUnbilledEvents">
+      <input message="tns:fetchUnbilledEvents_in" />
+      <output message="tns:fetchUnbilledEvents_out" />
+    </operation>
+    <operation name="fetchEvents">
+      <input message="tns:fetchEvents_in" />
+      <output message="tns:fetchEvents_out" />
+    </operation>
+    <operation name="fetchEventById">
+      <input message="tns:fetchEventById_in" />
+      <output message="tns:fetchEventById_out" />
+    </operation>
+    <operation name="fetchEventByVid">
+      <input message="tns:fetchEventByVid_in" />
+      <output message="tns:fetchEventByVid_out" />
+    </operation>
+    <operation name="fetchAll">
+      <input message="tns:fetchAll_in" />
+      <output message="tns:fetchAll_out" />
+    </operation>
+  </portType>
+  <binding name="RatePlanBinding" type="tns:RatePlanPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="update">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Creates a new RatePlan object or updates an existing one.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>ratePlan</b></dt>
+<dd></dd>
+<dt><b>force</b></dt>
+<dd>By default, the server will not allow you to change a RatePlan that already has events recorded against it. You can use the "force" flag to override this.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>ratePlan</b></dt>
+<dd></dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/RatePlan#update" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="fetchByMerchantRatePlanId">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Fetches an existing RatePlan by its merchantRatePlanId.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>merchantRatePlanId</b></dt>
+<dd></dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>ratePlan</b></dt>
+<dd></dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/RatePlan#fetchByMerchantRatePlanId" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="fetchByVid">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Fetches an existing RatePlan by its VID.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>vid</b></dt>
+<dd></dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>ratePlan</b></dt>
+<dd></dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/RatePlan#fetchByVid" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="recordEvent">
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/RatePlan#recordEvent" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="reverseEvent">
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/RatePlan#reverseEvent" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="deductEvent">
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/RatePlan#deductEvent" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="fetchUnbilledRatedUnitsTotal">
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/RatePlan#fetchUnbilledRatedUnitsTotal" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="fetchUnbilledEvents">
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/RatePlan#fetchUnbilledEvents" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="fetchEvents">
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/RatePlan#fetchEvents" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="fetchEventById">
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/RatePlan#fetchEventById" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="fetchEventByVid">
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/RatePlan#fetchEventByVid" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+    <operation name="fetchAll">
+      <soap:operation soapAction="http://soap.vindicia.com/v8_0/RatePlan#fetchAll" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="RatePlan">
+    <port binding="tns:RatePlanBinding" name="RatePlanPort">
+      <soap:address location="https://soap.vindicia.com/soap.pl" />
+    </port>
+  </service>
+</definitions>

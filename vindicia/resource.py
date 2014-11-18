@@ -12,17 +12,23 @@ def get_authentication():
         'version': vindicia.VERSION,
     }
 
+def get_list_attr(vin_object):
+    if type(vin_object._list_attr) == dict:
+        return vin_object._list_attr[str(vindicia.VERSION)]
+    return vin_object._list_attr
+
 
 class BaseWSDL(object):
     def __init__(self, vin_object=None,  **kwargs):
+        list_attr = get_list_attr(self)
         if vin_object:
-            for attr_name in self._list_attr:
+            for attr_name in list_attr:
                 if getattr(vin_object, attr_name, None):
                     setattr(self, attr_name, getattr(vin_object, attr_name))
                 else:
                     setattr(self, attr_name, None)
         else:
-            for attr_name in self._list_attr:
+            for attr_name in list_attr:
                 if kwargs.get(attr_name) is not None:
                     setattr(self, attr_name, kwargs[attr_name])
                 else:
@@ -30,13 +36,13 @@ class BaseWSDL(object):
 
     def to_dict(self):
         attr_dict = {}
-        for attrName in self._list_attr:
+        for attrName in get_list_attr(self):
             attr_dict[attrName] = getattr(self, attrName)
         return attr_dict
 
 class CallClient(object):
     def call(self, group, action, inputs):
-        wsdl_file = 'file://%s/%s.wsdl' % (vindicia.VIN_SOAP_WSDL_PATH, group)
+        wsdl_file = 'file://%s/%s/%s.wsdl' % (vindicia.VIN_SOAP_WSDL_PATH, vindicia.VERSION, group)
         return_data = {}
         try:
             if not vindicia.VIN_SOAP_HOST:

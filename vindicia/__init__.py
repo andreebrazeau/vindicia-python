@@ -326,7 +326,7 @@ class PaymentMethod(BaseWSDL):
 
 
 class AutoBill(BaseWSDL):
-    _list_attr = [
+    _list_attr = {'4.3': [
         "VID",
         "merchantAutoBillId",
         "account",
@@ -356,7 +356,38 @@ class AutoBill(BaseWSDL):
         "statementTemplateId",
         "billingPlanCampaignCode",
         "billingPlanCampaignId",
-    ]
+    ],
+    '8.0': [
+        "VID",
+        "merchantAutoBillId",
+        "account",
+        "billingPlan",
+        "paymentMethod",
+        "currency",
+        "customerAutoBillName",
+        "status",
+        "startTimestamp",
+        "endTimestamp",
+        "items",
+        "sourceIp",
+        "billingStatementIdentifier",
+        "billingDay",
+        "minimumCommitment",
+        "merchantAffiliateId",
+        "merchantAffiliateSubId",
+        "warnOnExpiration",
+        "nextBilling",
+        "nameValues",
+        "credit",
+        "statementFormat",
+        "statementFormat",
+        "invoiceTerms",
+        "statementOffset",
+        "statementTemplateId",
+        "billingPlanCampaignCode",
+        "billingPlanCampaignId",
+        "billingPlanHistory",
+    ],}
 
     def __init__(self, **kwargs):
         super(AutoBill, self).__init__(**kwargs)
