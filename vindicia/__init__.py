@@ -1,4 +1,6 @@
 import os
+import inspect
+import types
 from vindicia.resource import *
 
 
@@ -10,7 +12,7 @@ Please see the Vindicia API documentation for more information:
 
 """
 
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 
 USER = None
 """The SOAP api client user to authenticated against."""
@@ -39,12 +41,106 @@ VIN_HOA_HOST = "https://secure.{}vindicia.com/vws"
 
 VIN_SOAP_WSDL_PATH = os.path.join(os.path.dirname(__file__), 'wsdl')
 
+
 def get_soap_host():
     environement = vindicia.ENVIRONMENT
     if environement == "Production":
         vindicia.VIN_SOAP_HOST = "https://soap.vindicia.com"
     else:
         vindicia.VIN_SOAP_HOST = "https://soap.{}.sj.vindicia.com".format(environement)
+
+"""
+This should be enabled when I figure out about serialization of objects in some of the methods such as Transaction.score
+which takes a transaction object.
+
+class SoapDecorator(object):
+    def __init__(self, f):
+        self.f = f
+        self.__name__ = self.f.__name__
+        self.__doc__ = self.f.__doc__
+
+        self.f_name = self.underscore_to_camelcase(self.f.__name__)
+
+        inspection = inspect.getargspec(f)
+        self.positional_arg_map = [
+            self.underscore_to_camelcase(arg) for arg in inspection.args[1:]
+        ]
+
+        self.keyword_arg_map = {
+            arg: self.underscore_to_camelcase(arg) for arg in inspection.args[1:]
+        }
+
+    def __call__(self, *args, **kwargs):
+        params = {
+            'parameters': {
+                'auth': get_authentication(),
+            }
+        }
+
+        # We only use this to validate that arguments are okay
+        self.f(*args, **kwargs)
+
+        # Add all positional arguments
+        for idx, arg in enumerate(args[1:]):
+            params['parameters'][self.positional_arg_map[idx]] = arg
+
+        # Add all keyword arguments
+        for k, v in kwargs:
+            if v is not None:
+                params['parameters'][self.keyword_arg_map[k]] = v
+
+        return CallClient().call(args[0].__class__.__name__, self.f_name, params)
+
+    def __get__(self, obj, ownerClass=None):
+        return types.MethodType(self, obj)
+
+    @classmethod
+    def underscore_to_camelcase(cls, value):
+        def camelcase():
+            yield str.lower
+            while True:
+                yield str.capitalize
+
+        c = camelcase()
+        return "".join(c.next()(x) if x else '_' for x in value.split("_"))
+
+"""
+
+
+class SoapDecorator(object):
+    """
+    The does a lot of the common work so functions really only have to handle serializing the parameters they know about
+    """
+    def __init__(self, f):
+        self.f = f
+        self.__name__ = self.f.__name__
+        self.__doc__ = self.f.__doc__
+
+        self.f_name = self.underscore_to_camelcase(self.f.__name__)
+
+    def __call__(self, *args, **kwargs):
+        params = {
+            'parameters': {
+                'auth': get_authentication(),
+            }
+        }
+        params['parameters'].update(self.f(*args, **kwargs))
+
+        return CallClient().call(args[0].__class__.__name__, self.f_name, params)
+
+    def __get__(self, obj, ownerClass=None):
+        return types.MethodType(self, obj)
+
+    @classmethod
+    def underscore_to_camelcase(cls, value):
+        def camelcase():
+            yield str.lower
+            while True:
+                yield str.capitalize
+
+        c = camelcase()
+        return "".join(c.next()(x) if x else '_' for x in value.split("_"))
+
 
 class Account(BaseWSDL):
     _list_attr = ['VID',
@@ -143,7 +239,6 @@ class Account(BaseWSDL):
 
         ret = soap.call('Account', 'makePayment', inputs)
         return ret
-
 
 
 class BillingPlan(BaseWSDL):
@@ -593,6 +688,7 @@ class AutoBill(BaseWSDL):
         ret = soap.call('AutoBill', 'makePayment', inputs)
         return ret
 
+
 class Entitlement(BaseWSDL):
     _list_attr = [
         "VID",
@@ -649,3 +745,128 @@ class Entitlement(BaseWSDL):
 
         ret = soap.call('Entitlement', 'fetchDeltaSince', inputs)
         return ret
+
+
+class Transaction(BaseWSDL):
+    _list_attr = [
+        "VID",
+        "amount",
+        "originalAmount",
+        "currency",
+        "divisionNumber",
+        "merchantTransactionId",
+        "previousMerchantTransactionId",
+        "timestamp",
+        "account",
+        "sourcePaymentMethod",
+        "destPaymentMethod",
+        "ecpTransactionType",
+        "statusLog",
+        "paymentProcessor",
+        "sourcePhoneNumber",
+        "shippingAddress",
+        "nameValues",
+        "transactionItems",
+        "merchantAffiliateId",
+        "merchantAffiliateSubId",
+        "userAgent",
+        "note",
+        "preferredNotificationLanguage",
+        "sourceMacAddress",
+        "sourceIp",
+        "billingStatementIdentifier",
+        "taxExemptions",
+        "salesTaxAddress",
+        "verificationCode",
+        "autoBillCycle",
+        "billingPlanCycle",
+    ]
+
+    @SoapDecorator
+    def fetch_by_vid(self, vid):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def fetch_by_web_session_vid(self, vid):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def fetch_by_merchant_transaction_id(self, merchant_transaction_id):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def fetch_delta_since(self, timestamp, end_timestamp, page=None, page_size=None, payment_method=None):
+        params = {
+            'timestamp': timestamp,
+            'endTimestamp': end_timestamp,
+        }
+        if page is not None:
+            params['page'] = page
+        if page_size is not None:
+            params['pageSize'] = page_size
+        if payment_method is not None:
+            params['paymentMethod'] = payment_method
+
+        return params
+
+    @SoapDecorator
+    def fetch_delta(self, page_size):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def fetch_by_autobill(self, autobill):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def fetch_by_payment_method(self, payment_method, page, page_size):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def auth(self, transaction, min_chargeback_probability, send_email_notification=None, campaign_code=None,
+             dryrun=False):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def calculate_sales_tax(self, transaction):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def capture(self, transactions):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def cancel(self, transactions):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def auth_capture(self, transaction, send_email_notification=None, ignore_avs_policy=None, ignore_cvn_policy=None,
+                     campaign_code=None, dryrun=None):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def report(self, transactions):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def score(self, transaction):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def finalize_pay_pal_auth(self, pay_pal_transaction_id, success):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def finalize_boku_auth_capture(self, transaction_vid, success):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def finalize_customer_action(self, transaction_vid):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def address_and_sales_tax_from_pay_pal_order(self, pay_pal_transaction_id):
+        raise NotImplementedError
+
+    @SoapDecorator
+    def migrate(self, migration_transactions):
+        raise NotImplementedError
