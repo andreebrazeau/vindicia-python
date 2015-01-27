@@ -369,3 +369,9 @@ class VindiciaTestCase(VindiciaTest):
         self.assertTrue(response.get('completed'))
         self.assertEqual(response['return_code'], 200)
         self.assertEqual(getattr(response['data'], 'entitlements', []), [])
+
+class VindiciaModifyTestCase(VindiciaTestCase):
+
+    def setUp(self):
+        self.get_account(new=True)
+

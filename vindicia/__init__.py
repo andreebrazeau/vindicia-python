@@ -10,7 +10,7 @@ Please see the Vindicia API documentation for more information:
 
 """
 
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 
 USER = None
 """The SOAP api client user to authenticated against."""
