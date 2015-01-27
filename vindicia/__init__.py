@@ -593,6 +593,31 @@ class AutoBill(BaseWSDL):
         ret = soap.call('AutoBill', 'makePayment', inputs)
         return ret
 
+    def modify(self, bill_prorated_period, effective_date,
+               change_billing_plan_to, auto_bill_item_modifications, dryrun=False):
+        auth = get_authentication()
+
+        call_params = {
+            'auth': auth,
+            'autobill': self.to_dict(),
+            'billProratedPeriod': bill_prorated_period,
+            'effectiveDate': effective_date,
+            'changeBillingPlanTo': change_billing_plan_to,
+            'autoBillItemModifications': auto_bill_item_modifications,
+            'dryrun': dryrun,
+        }
+
+        inputs = {
+            'parameters': call_params
+        }
+
+        soap = CallClient()
+
+        ret = soap.call('AutoBill', 'modify', inputs)
+
+        return ret
+
+
 class Entitlement(BaseWSDL):
     _list_attr = [
         "VID",
