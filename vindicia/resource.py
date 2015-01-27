@@ -40,6 +40,7 @@ class BaseWSDL(object):
             attr_dict[attrName] = getattr(self, attrName)
         return attr_dict
 
+
 class CallClient(object):
     def call(self, group, action, inputs):
         wsdl_file = 'file://%s/%s/%s.wsdl' % (vindicia.VIN_SOAP_WSDL_PATH, vindicia.VERSION, group)
